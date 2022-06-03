@@ -45,9 +45,20 @@ import FirebaseFirestore
 
 public struct FirestoreCollection {
     
-    public let name: String
     
+    //----------------------------
+    //  MARK: - Public Properties
+    //----------------------------
     public var reference: CollectionReference {
         return Firestore.firestore().collection(name)
+    }
+    public let name: String
+    
+    
+    //---------------
+    //  MARK: - Init
+    //---------------
+    public init(name: String) {
+        self.name = name
     }
 }
