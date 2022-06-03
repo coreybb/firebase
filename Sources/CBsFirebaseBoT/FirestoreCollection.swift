@@ -43,11 +43,11 @@ import FirebaseFirestore
 //}
 
 
-struct FirestoreCollection {
+public struct FirestoreCollection {
     
-    let name: String
+    public let name: String
     
-    var reference: CollectionReference {
+    public var reference: CollectionReference {
         return Firestore.firestore().collection(name)
     }
 }

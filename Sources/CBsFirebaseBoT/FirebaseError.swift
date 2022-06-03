@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum FirebaseError {
+public enum FirebaseError {
     //  TODO: - URGENT: Name these associated values!!!!!
     case badQuery(FirestoreCollection?)
     case duplicateEntry(FirestoreCollection?, String?)
@@ -26,7 +26,7 @@ enum FirebaseError {
 
 
 
-extension FirebaseError {
+public extension FirebaseError {
     
     
     var userMessage: String {

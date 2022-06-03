@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 
-protocol FirestoreNetworking {
+public protocol FirestoreNetworking {
 
 
     /// Retrieves an array containing entire collection of objects of the specified type from Firestore.
@@ -50,7 +50,7 @@ protocol FirestoreNetworking {
 //-------------------------
 //  MARK: - Implementation
 //-------------------------
-extension FirestoreNetworking {
+public extension FirestoreNetworking {
 
 
     typealias NetworkResult <T: Firestorable> = (_ result: FirebaseResult<T>) -> ()
