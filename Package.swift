@@ -24,6 +24,10 @@ let package = Package(
         .target(
             name: "CBsFirebaseBoT",
             dependencies: [
+//                .product(name: "Firebase",
+//                         package: firebasePackageName),
+                .product(name: "FirebaseAuth",
+                         package: firebasePackageName),
                 .product(name: "FirebaseFirestore",
                          package: firebasePackageName),
                 .product(name: "FirebaseFirestoreSwift",
