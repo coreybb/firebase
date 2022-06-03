@@ -11,6 +11,9 @@ import Firebase
 public class CBsFirebase {
     
     
+    public init() { }
+    
+    
     //---------------------
     //  MARK: - Public API
     //---------------------
