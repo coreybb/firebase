@@ -73,7 +73,7 @@ public extension FirestoreNetworking {
             }
 
             guard let snapshot = snapshot else {
-                print("NO SNAPSHOT")
+                print("Though Firebase did not return a known error, we were unable to safely unwrap the returned Snapshot object.")
                 complete?(.error(self.firebase(error) ?? FirebaseError.noResult(nil, nil)))
                 return
             }
@@ -89,6 +89,8 @@ public extension FirestoreNetworking {
 
                 complete?(.error(.serialization(codingErrors))); return
             }
+            
+            complete?(.object(objects))
         }
     }
 
