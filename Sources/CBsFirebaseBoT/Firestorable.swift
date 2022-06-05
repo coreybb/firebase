@@ -7,5 +7,5 @@
 
 public protocol Firestorable: Codable {
     
-    var collection: FirestoreCollection { get }
+    static var collection: FirestoreCollection { get }
 }

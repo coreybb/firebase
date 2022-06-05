@@ -218,14 +218,15 @@ public extension FirestoreNetworking {
 
 
     func batchPut <T: IdentifiableByProperty> (_ objectsWithID: [T], complete: NetworkResults<T>? = nil) {
+//
+//        guard let someObject = objectsWithID.first else {
+//            let message = "Attempted to batch put an empty array of objects conforming to IdentifiableByProperty."
+//            // TODO: - Do something
+//            return
+//        }
 
-        guard let someObject = objectsWithID.first else {
-            let message = "Attempted to batch put an empty array of objects conforming to IdentifiableByProperty."
-            // TODO: - Do something
-            return
-        }
-
-        let collection = someObject.collection
+//        let collection = T.collection
+//        let collection = someObject.collection
 
         //  TODO: - Figure out how to toggle log mode for the user dev.
 //        if isLogMode {
@@ -238,7 +239,7 @@ public extension FirestoreNetworking {
         objectsWithID.forEach {
 
             do {
-                try batch.setData(from: $0, forDocument: $0.collection.reference.document($0.id))
+                try batch.setData(from: $0, forDocument: T.collection.reference.document($0.id))
             } catch let error as NSError {
                 if (codingErrors?.append(error)) == nil {
                     codingErrors = [error]
@@ -248,7 +249,7 @@ public extension FirestoreNetworking {
 
         batch.commit {
 
-            if let error = self.firebase($0, for: objectsWithID.first?.collection) {
+            if let error = self.firebase($0, for: T.collection) {
                 complete?(.error(error)); return
             }
 
@@ -272,11 +273,11 @@ public extension FirestoreNetworking {
 
     func put <T: Firestorable> (_ object: T, explicitID: String? = nil, _ complete: NetworkResult<T>? = nil) {
 
-        let id = explicitID ?? object.collection.reference.document().documentID
+        let id = explicitID ?? T.collection.reference.document().documentID
 
         do {
             //  TODO: - Does NOT throw an error when it doesn't work. Needs urgent fix.
-            try object.collection.reference.document(id).setData(from: object)
+            try T.collection.reference.document(id).setData(from: object)
             complete?(.object(object))
         } catch let error as NSError {
             //  TODO: - This would likely NOT be a serialization error.
@@ -290,7 +291,7 @@ public extension FirestoreNetworking {
         let object = new(objectWithID, with: explicitID)
 
         do {
-            try object.collection.reference.document(object.id).setData(from: object)
+            try T.collection.reference.document(object.id).setData(from: object)
             complete?(.object(object))
         } catch let error as NSError {
             //  TODO: - This would likely NOT be a serialization error.
@@ -356,7 +357,7 @@ public extension FirestoreNetworking {
         var newObject = object
 
         if newObject.id == "" {
-            newObject.id = explicitID ?? object.collection.reference.document().documentID
+            newObject.id = explicitID ?? T.collection.reference.document().documentID
         }
 
         return newObject
