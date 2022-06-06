@@ -34,7 +34,7 @@ public protocol FirestoreNetworking {
 
 
     /// Atomically batch writes an array of objects conforming to `IdentifiableByProperty`  to Firestore. If explicitly assigned IDs are required, objects must be assigned these values in advance.
-    func batchPut <T: Identifiable> (_ objectsWithID: [T], complete: NetworkResults<T>?)
+    func batchPut <T: Identifiable & Firestorable> (_ objectsWithID: [T], complete: NetworkResults<T>?)
 
 
     /// Saves an object to Firestore. If no `explicitID` value is provided, one will be generated. If a document ID matching the object's ID is required, but `IdentifiableByProperty` conformance is not possible,  an explicitID must be provided.
