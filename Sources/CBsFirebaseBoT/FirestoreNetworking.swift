@@ -217,7 +217,7 @@ public extension FirestoreNetworking {
     }
 
 
-    func batchPut <T: Identifiable> (_ objectsWithID: [T], complete: NetworkResults<T>? = nil) {
+    func batchPut <T: Identifiable & Firestorable> (_ objectsWithID: [T], complete: NetworkResults<T>? = nil) {
 
         //  TODO: - Figure out how to toggle log mode for the user dev.
 //        if isLogMode {
