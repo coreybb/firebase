@@ -34,7 +34,7 @@ public protocol FirestoreNetworking {
 
 
     /// Atomically batch writes an array of objects conforming to `IdentifiableByProperty`  to Firestore. If explicitly assigned IDs are required, objects must be assigned these values in advance.
-    func batchPut <T: Identifiable & Firestorable> (_ objectsWithID: [T], complete: NetworkResults<T>?)
+    func batchPut <T: Firestorable> (_ objectsWithID: [T], complete: NetworkResults<T>?)
 
 
     /// Saves an object to Firestore. If no `explicitID` value is provided, one will be generated. If a document ID matching the object's ID is required, but `IdentifiableByProperty` conformance is not possible,  an explicitID must be provided.
@@ -42,7 +42,7 @@ public protocol FirestoreNetworking {
 
 
     /// Saves an object conforming to `IdentifiableByProperty` to Firestore. If the object lacks an ID and no `explicitID` value is provided, one will be generated. If the passed object already has a valid ID, `explicitID` will be ignored.
-    func put <T: Identifiable> (_ objectWithID: T, explicitID: String?, _ complete: NetworkResult<T>?)
+//    func put <T: Firestorable> (_ objectWithID: T, explicitID: String?, _ complete: NetworkResult<T>?)
 }
 
 
@@ -217,7 +217,7 @@ public extension FirestoreNetworking {
     }
 
 
-    func batchPut <T: Identifiable & Firestorable> (_ objectsWithID: [T], complete: NetworkResults<T>? = nil) {
+    func batchPut <T: Firestorable> (_ objectsWithID: [T], complete: NetworkResults<T>? = nil) {
 
         //  TODO: - Figure out how to toggle log mode for the user dev.
 //        if isLogMode {
@@ -277,18 +277,18 @@ public extension FirestoreNetworking {
     }
 
 
-    func put <T: Identifiable> (_ objectWithID: T, explicitID: String? = nil, _ complete: NetworkResult<T>? = nil) {
-
-        let object = new(objectWithID, with: explicitID)
-
-        do {
-            try T.collection.reference.document(object.id).setData(from: object)
-            complete?(.object(object))
-        } catch let error as NSError {
-            //  TODO: - This would likely NOT be a serialization error.
-            complete?(.error(.serialization([error])))
-        }
-    }
+//    func put <T: Firestorable> (_ objectWithID: T, explicitID: String? = nil, _ complete: NetworkResult<T>? = nil) {
+//
+//        let object = new(objectWithID, with: explicitID)
+//
+//        do {
+//            try T.collection.reference.document(object.id).setData(from: object)
+//            complete?(.object(object))
+//        } catch let error as NSError {
+//            //  TODO: - This would likely NOT be a serialization error.
+//            complete?(.error(.serialization([error])))
+//        }
+//    }
 
 
     func search <T: Firestorable> (for term: String, in collection: FirestoreCollection, complete: NetworkResults<T>?) {
