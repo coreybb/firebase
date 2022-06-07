@@ -343,7 +343,7 @@ public extension FirestoreNetworking {
     //----------------------
     //  MARK: - Private API
     //----------------------
-    private func new <T: Identifiable> (_ object: T, with explicitID: String?) -> T {
+    private func new <T: Identifiable & Firestorable> (_ object: T, with explicitID: String?) -> T {
 
         var newObject = object
 

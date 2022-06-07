@@ -18,7 +18,7 @@ extension DocumentSnapshot {
     //---------------------
     //  MARK: - Public API
     //---------------------
-    func decoded <T: Firestorable>(type: T.Type) -> FirestoreDecodingResult<T> where T : Firestorable {
+    func decoded <T: Firestorable>(type: T.Type) -> FirestoreDecodingResult<T> {
         
         do {
             return .object(try self.data(as: T.self))

@@ -6,7 +6,7 @@
 //
 
 /// Guarantees that a given object has `id` as a property, and requires the object define a `collection: FirestoreCollection`.
-public protocol Identifiable: Firestorable {
+public protocol Identifiable {
     
     var id: String { get set }
 }
